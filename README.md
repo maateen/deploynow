@@ -1,10 +1,10 @@
 # Table of Contents
 
-- [Start Deployment](https://github.com/maateen/deploynow/blob/master/README.md#start-deployment)
-	- [Creating a Deployment User](https://github.com/maateen/deploynow/blob/master/README.md#creating-a-deployment-user)
-	- [Creating Deployment Path](https://github.com/maateen/deploynow/blob/master/README.md#creating-deployment-path)
-	- [Adding DeployNow Public Key to your Server](https://github.com/maateen/deploynow/blob/master/README.md#adding-deploynow-public-key-to-your-server)
-	- [Adding your Deploy Key to GitHub/GitLab/BitBucket](https://github.com/maateen/deploynow/blob/master/README.md#adding-your-deploy-key-to-githubgitlabbitbucket)
+- [Start Deployment](https://github.com/maateen/deploynow#start-deployment)
+	- [Creating a Deployment User](https://github.com/maateen/deploynow#creating-a-deployment-user)
+	- [Creating Deployment Path](https://github.com/maateen/deploynow#creating-deployment-path)
+	- [Adding DeployNow Public Key to your Server](https://github.com/maateen/deploynow#adding-deploynow-public-key-to-your-server)
+	- [Adding your Deploy Key to GitHub/GitLab/BitBucket](https://github.com/maateen/deploynow#adding-your-deploy-key-to-githubgitlabbitbucket)
 
 # Start Deployment
 
