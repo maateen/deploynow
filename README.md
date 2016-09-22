@@ -1,11 +1,11 @@
 # Table of Contents
 
-- [Start Deployment](https://github.com/maateen/deploynow#start-deployment)
-	- [Creating a Deployment User](https://github.com/maateen/deploynow#creating-a-deployment-user)
-	- [Creating Deployment Path](https://github.com/maateen/deploynow#creating-deployment-path)
-	- [Adding DeployNow Public Key to your Server](https://github.com/maateen/deploynow#adding-deploynow-public-key-to-your-server)
-	- [Adding your Deploy Key to GitHub/GitLab/BitBucket](https://github.com/maateen/deploynow#adding-your-deploy-key-to-githubgitlabbitbucket)
-	- [Setting up Git in your Deployment Path](https://github.com/maateen/deploynow#setting-up-git-in-your-deployment-path)
+- [Start Deployment](#start-deployment)
+	- [Creating a Deployment User](#creating-a-deployment-user)
+	- [Creating Deployment Path](#creating-deployment-path)
+	- [Adding DeployNow Public Key to your Server](#adding-deploynow-public-key-to-your-server)
+	- [Adding your Deploy Key to GitHub/GitLab/BitBucket](#adding-your-deploy-key-to-githubgitlabbitbucket)
+	- [Setting up Git in your Deployment Path](#setting-up-git-in-your-deployment-path)
 
 # Start Deployment
 
