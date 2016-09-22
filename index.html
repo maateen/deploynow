@@ -60,7 +60,7 @@
 <pre><code>chown deploynow:www-data /var/www/html
 </code></pre>
 
-<pre><code>chmod 2755 /var/www/html
+<pre><code>chmod 777 /var/www/html
 </code></pre>
 
 <p>Note the 2755 access mode. It is recommended that you set the GUID bit on the application directory. This way all files created inside it will be automatically owned by group www-data (with read-only access).</p>
@@ -97,7 +97,12 @@
 <pre><code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 </code></pre>
 
-<p>When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location. After that, you will be asked to type a passphrase. Don't type anything, just press <strong>Enter</strong> twice.</p>
+<p>When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location. After that, you will be asked to type a passphrase. Don't type anything, just press <strong>Enter</strong> twice. Now play the following command:</p>
+
+<pre><code>cat /home/deploynow/.ssh/id_rsa.pub
+</code></pre>
+
+<p>This will show your deploy key. Simply add this to the desired repository.</p>
 
 <p>Now login to your server and play the following commands (never forget to change the <strong>deploynow</strong> to your deployment user):</p>
 
@@ -134,7 +139,10 @@ ssh-add -l <span class="pl-k">|</span> grep <span class="pl-s"><span class="pl-p
 <pre><code>git remote add origin [SSH URL of the repository]
 </code></pre>
 
-<p>That's all. We will do the rest.</p>
+<pre><code>git pull origin [branch]
+</code></pre>
+
+<p>That's all. We will do the continuous integration from then.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/maateen/deploynow">Deploynow Docs</a> is maintained by <a href="https://github.com/maateen">maateen</a>.</span>
