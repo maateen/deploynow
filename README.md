@@ -69,7 +69,11 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 
 When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location. After that, you will be asked to type a passphrase. Don't type anything, just press **Enter** twice.
 
-Now login to your server as the deployment user, you have created before. Play the following command:
+Now login to your server and play the following commands (never forget to change the **deploynow** to your deployment user):
+
+```
+su deploynow
+```
 
 ```
 nano ~/.bashrc
@@ -87,3 +91,22 @@ ssh-add -l | grep "The agent has no identities" && ssh-add
 ```
 
 Press **Ctrl + X**, then press **Y** and at last press **Enter**.
+
+## Setting up Git in your Deployment Path
+
+Now login to your server and play the following commands (never forget to change the **deploynow** to your deployment user):
+
+```
+su deploynow
+```
+
+You should install git as our bot will use it. Then initialize git in your deployment path:
+
+```
+git init
+```
+```
+git remote add origin [SSH URL of the repository]
+```
+
+That's all. We will do the rest.
