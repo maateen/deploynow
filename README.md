@@ -30,7 +30,7 @@ mkdir -p /var/www/html
 chown deploynow:www-data /var/www/html
 ```
 ```
-chmod 2755 /var/www/html
+chmod 777 /var/www/html
 ```
 
 Note the 2755 access mode. It is recommended that you set the GUID bit on the application directory. This way all files created inside it will be automatically owned by group www-data (with read-only access).
@@ -115,5 +115,8 @@ git init
 ```
 git remote add origin [SSH URL of the repository]
 ```
+```
+git pull origin [branch]
+```
 
-That's all. We will do the rest.
+That's all. We will do the continuous integration from then.
