@@ -68,7 +68,13 @@ You need to generate a deploy key and should add it to your repository for the d
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
 
-When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location. After that, you will be asked to type a passphrase. Don't type anything, just press **Enter** twice.
+When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location. After that, you will be asked to type a passphrase. Don't type anything, just press **Enter** twice. Now play the following command:
+
+```
+cat /home/deploynow/.ssh/id_rsa.pub
+```
+
+This will show your deploy key. Simply add this to the desired repository.
 
 Now login to your server and play the following commands (never forget to change the **deploynow** to your deployment user):
 
