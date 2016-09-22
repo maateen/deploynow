@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Deploynow by maateen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Deploynow</h1>
+      <h2 class="project-tagline">Push. Build. Deploy!</h2>
+      <a href="https://github.com/maateen/deploynow" class="btn">View on GitHub</a>
+      <a href="https://github.com/maateen/deploynow/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/maateen/deploynow/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Table of Contents</h1>
+
+<ul>
+<li>
+<a href="https://github.com/maateen/deploynow#start-deployment">Start Deployment</a>
+
+<ul>
+<li><a href="https://github.com/maateen/deploynow#creating-a-deployment-user">Creating a Deployment User</a></li>
+<li><a href="https://github.com/maateen/deploynow#creating-deployment-path">Creating Deployment Path</a></li>
+<li><a href="https://github.com/maateen/deploynow#adding-deploynow-public-key-to-your-server">Adding DeployNow Public Key to your Server</a></li>
+<li><a href="https://github.com/maateen/deploynow#adding-your-deploy-key-to-githubgitlabbitbucket">Adding your Deploy Key to GitHub/GitLab/BitBucket</a></li>
+<li><a href="https://github.com/maateen/deploynow#setting-up-git-in-your-deployment-path">Setting up Git in your Deployment Path</a></li>
+</ul>
+</li>
+</ul>
+
+<h1>
+<a id="start-deployment" class="anchor" href="#start-deployment" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Start Deployment</h1>
+
+<h2>
+<a id="creating-a-deployment-user" class="anchor" href="#creating-a-deployment-user" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a Deployment User</h2>
+
+<p>Your can log in to your server as root. While it is possible to perform application deployments as root, we recommend that you take a slightly longer path and create a separate user with limited write-access to use in DeployNow. This will circumscribe destructive powers of a mistyped command and reduce the risks associated with accidentally exposing your credentials on the web. The following command will create a new user with login “deploynow" and no password set yet. This user will be added to group www-data as it is used in NginX. If you are using any Web Server except NginX, then change it as needed.</p>
+
+<pre><code>useradd -U -G www-data -m -c "Used by DeployNow for deployment automation" deploynow
+</code></pre>
+
+<p>With NginX, the server is configured in a way that all web services are run by user www-data, a member of www-data group. Generally you’ll want your application files to be writable by your deployment user only, limiting www-data to read access except for when the write permissions are required (logging, file uploads, caching, etc).</p>
+
+<h2>
+<a id="creating-deployment-path" class="anchor" href="#creating-deployment-path" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating Deployment Path</h2>
+
+<p>Now you need to pick up the directory where your web app files are going to be stored (for instance, /var/www/html). It has to be readable by the members of www-data group, but only writable by the deployment user.</p>
+
+<pre><code>mkdir -p /var/www/html
+</code></pre>
+
+<pre><code>chown deploynow:www-data /var/www/html
+</code></pre>
+
+<pre><code>chmod 2755 /var/www/html
+</code></pre>
+
+<p>Note the 2755 access mode. It is recommended that you set the GUID bit on the application directory. This way all files created inside it will be automatically owned by group www-data (with read-only access).</p>
+
+<h2>
+<a id="adding-deploynow-public-key-to-your-server" class="anchor" href="#adding-deploynow-public-key-to-your-server" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adding DeployNow Public Key to your Server</h2>
+
+<p>Have you ever thought how DeployNow works? In simple, it login to your server with SSH and run necessary commands. So, to login via SSH key (without password). we need to have our public key on your server. You have to add our key manually. Here is our public key:</p>
+
+<pre><code>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3y8Kdxq9DYP0uPkydkwR3uC6J/lJEozNvcFMnJ5lnNsyrarJEmwxaTrguAGHbesWXXP0NSCQtDWEaI3P1BJr86E2lSna0IcjhVfyGUHDW7mtBvYv+D1To93WlkPBRU8BOzxnX4UrE6rklSQ4wUVIJsuCKnXQYgsB440YWFJ01N6b97nlKZJPTP5MYil5q1E291aLtz+CwBERr7AnW8Xi6L99yxiNHH3F1Q6R/CN+C4Lf8jIKb0nNo2Y2T6GnNeKDQ6+SadpXvBGMzghZn2Cw2iMEAJokSrHP/BZDfgmy4q2eKhDj+hEtkWOVf4rLmZjnhkgnys/HgAPPRVx5s+97u5Ke8vO4b3HlxrcDfwuAA1NSRqKyuGA8kmktileW/LzKZ7GagCpa8pcNF3eSmKNvAapWclz6yiUBk+swfIq33WntGgT1j1p8kuBoX8EmPCNsBadYJ9cnI5b43BzBpiPi7eZ4iv76rpZjfHqLU8jE37t6JojAi87f81W2DBe7VJZogS4oyocViyhEwDRilPBaVv9oL5yF70PQHtLv2hf9H2iHrS8IT35HDgRrnSG/KixzHXyoUCaaeflMHG5bL0t4P0hZT9zzQyFdsrwtKP2e0fEgnPL30esZnfJfbjH6vHWnwfxYF53H+deXpo2RjrP5mZ9CQXQjtiUi+y3dAVnF8JQ== ugcoder@yahoo.com
+</code></pre>
+
+<p>Now, login to your server as root. Then play the following commands (never forget to change the <strong>deploynow</strong> to your deployment user):</p>
+
+<pre><code>su deploynow
+</code></pre>
+
+<pre><code>mkdir ~/.ssh
+</code></pre>
+
+<pre><code>chmod 0700 ~/.ssh
+</code></pre>
+
+<pre><code>nano ~/.ssh/authorized_keys
+</code></pre>
+
+<p>Here you will see a file to be opened. Paste our public key here. Press <strong>Ctrl + X</strong>, then press <strong>Y</strong> and at last press <strong>Enter</strong>.</p>
+
+<h2>
+<a id="adding-your-deploy-key-to-githubgitlabbitbucket" class="anchor" href="#adding-your-deploy-key-to-githubgitlabbitbucket" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Adding your Deploy Key to GitHub/GitLab/BitBucket</h2>
+
+<p>You need to generate a deploy key and should add it to your repository for the deployment process. Let's generate it. Open Terminal. Paste the text below, substituting in your GitHub/GitLab/BitBucket email address.:</p>
+
+<pre><code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+</code></pre>
+
+<p>When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location. After that, you will be asked to type a passphrase. Don't type anything, just press <strong>Enter</strong> twice.</p>
+
+<p>Now login to your server and play the following commands (never forget to change the <strong>deploynow</strong> to your deployment user):</p>
+
+<pre><code>su deploynow
+</code></pre>
+
+<pre><code>nano ~/.bashrc
+</code></pre>
+
+<p>A file will be opened. At the end of the file, add these lines:</p>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-k">if</span> [ <span class="pl-k">!</span> <span class="pl-k">-S</span> <span class="pl-k">~</span>/.ssh/ssh_auth_sock ]<span class="pl-k">;</span> <span class="pl-k">then</span>
+  <span class="pl-c1">eval</span> <span class="pl-s"><span class="pl-pds">`</span>ssh-agent<span class="pl-pds">`</span></span>
+  ln -sf <span class="pl-s"><span class="pl-pds">"</span><span class="pl-smi">$SSH_AUTH_SOCK</span><span class="pl-pds">"</span></span> <span class="pl-k">~</span>/.ssh/ssh_auth_sock
+<span class="pl-k">fi</span>
+<span class="pl-k">export</span> SSH_AUTH_SOCK=<span class="pl-k">~</span>/.ssh/ssh_auth_sock
+ssh-add -l <span class="pl-k">|</span> grep <span class="pl-s"><span class="pl-pds">"</span>The agent has no identities<span class="pl-pds">"</span></span> <span class="pl-k">&amp;&amp;</span> ssh-add</pre></div>
+
+<p>Press <strong>Ctrl + X</strong>, then press <strong>Y</strong> and at last press <strong>Enter</strong>.</p>
+
+<h2>
+<a id="setting-up-git-in-your-deployment-path" class="anchor" href="#setting-up-git-in-your-deployment-path" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setting up Git in your Deployment Path</h2>
+
+<p>Now login to your server and play the following commands (never forget to change the <strong>deploynow</strong> to your deployment user):</p>
+
+<pre><code>su deploynow
+</code></pre>
+
+<p>You should install git as our bot will use it. Then initialize git in your deployment path:</p>
+
+<pre><code>git init
+</code></pre>
+
+<pre><code>git remote add origin [SSH URL of the repository]
+</code></pre>
+
+<p>That's all. We will do the rest.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/maateen/deploynow">Deploynow</a> is maintained by <a href="https://github.com/maateen">maateen</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
