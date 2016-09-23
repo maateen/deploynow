@@ -57,10 +57,10 @@
 <pre><code>mkdir -p /var/www/html
 </code></pre>
 
-<pre><code>chown deploynow:www-data /var/www/html
+<pre><code>chown deploynow:www-data -R /var/www/html
 </code></pre>
 
-<pre><code>chmod 777 /var/www/html
+<pre><code>chmod 2755 /var/www/html
 </code></pre>
 
 <p>Note the 2755 access mode. It is recommended that you set the GUID bit on the application directory. This way all files created inside it will be automatically owned by group www-data (with read-only access).</p>
