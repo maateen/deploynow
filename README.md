@@ -27,10 +27,10 @@ Now you need to pick up the directory where your web app files are going to be s
 mkdir -p /var/www/html
 ```
 ```
-chown deploynow:www-data /var/www/html
+chown deploynow:www-data -R /var/www/html
 ```
 ```
-chmod 777 /var/www/html
+chmod 2755 /var/www/html
 ```
 
 Note the 2755 access mode. It is recommended that you set the GUID bit on the application directory. This way all files created inside it will be automatically owned by group www-data (with read-only access).
